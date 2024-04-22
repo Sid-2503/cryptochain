@@ -1,0 +1,37 @@
+import java.util.Random;
+
+public class ParallelBubbleSort {
+    static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        int SIZE = 1 << 8;
+        int[] A = new int[SIZE];
+        Random rand = new Random();
+        for (int i = 0; i < SIZE; i++) {
+            A[i] = rand.nextInt(SIZE);
+        }
+
+        int N = SIZE;
+        double start, end;
+        start = System.nanoTime();
+        for (int i = 0; i < N - 1; i++) {
+            int first = i % 2;
+            for (int j = first; j < N - 1; j += 1) {
+                if (A[j] > A[j + 1]) {
+                    swap(A, j, j + 1);
+                }
+            }
+        }
+        end = System.nanoTime();
+
+        for (int i = 0; i < N; i++) {
+            System.out.print(" " + A[i]);
+        }
+
+        System.out.println("\n-------------------------\nTime Parallel= " + (end - start) / 1e9 + " seconds");
+    }
+}
